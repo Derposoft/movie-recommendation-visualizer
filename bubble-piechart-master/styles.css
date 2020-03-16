@@ -1,0 +1,56 @@
+.bubble {
+    left: 0%;
+    width: 50%;
+    height: 50%;
+}
+
+.para {
+    left: 0%;
+    width: 50%;
+    height: 50%;
+}
+
+path.bubblearc:hover {
+  opacity: 0.6;
+  stroke: black;
+  stroke-width: 1px;
+  transition: opacity 0.5s;
+}
+
+.tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  box-shadow: -3px 3px 15px #888;
+  color: white;
+  padding: 6px;
+}
+
+body {
+  font: 12px sans-serif;
+}
+
+path.arc {
+  opacity: 0.9;
+  transition: opacity 0.5s;
+}
+
+path.arc:hover {
+  opacity: 0.7;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.axis line, .axis circle  {
+  stroke: #cccccc;
+  stroke-width: 1px
+}
+
+.axis circle {
+  fill: none;
+}
+
+.r.axis text {
+  text-anchor: end
+}

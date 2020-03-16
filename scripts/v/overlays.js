@@ -8,17 +8,38 @@ const X_OFFSET = 10
 const BAR_HEIGHT = 15
 var width = 300
 var height = 300
-d3.select("#recs").append("text")
+
+// Prep the tooltip bits, initial display is hidden
+var tooltip = d3.select("#vtooltip")
+    .attr("fill", "white")
+    .style("display", "none")
+
+/*tooltip.append("rect")
+    .attr("width", 60 + "px")
+    .attr("height", 20 + "px")
+    .style("opacity", 0.5)*/
+
+tooltip.append("text")
+    .attr("style", "left:30;")
+    .attr("dy", ".2em")
+    .style("text-anchor", "left")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
+
+var gtitle = d3.select("#recs").append("text")
     .attr("x", 10 + "px")
     .attr("y", Y_OFFSET_TITLE)
-    .attr("font-size", 20)
+    .attr("font-size", 14)
     .attr("font-weight", 800)
-    .text("Movie Recommendations:")
-drawRecs = function(reclist, reclinks, linkSetting) {
+    .text("Select a Movie to view Recommendations")
+drawRecs = function(reclist, reclinks, title) {
+    if (title !== "")
+        gtitle.text("Recommendations for " + title)
     recboard.selectAll("text").remove()
     recboard.selectAll("text").data(reclist, d => d.title).enter().append("text")
         .attr("x", X_OFFSET + "px")
         .attr("y", (d, i) => i * Y_SPACING + Y_OFFSET)
+        .attr("font-weight", 800)
         .text(d => d.title)
     
     // Draw bars for each movie
@@ -67,8 +88,8 @@ drawRecs = function(reclist, reclinks, linkSetting) {
             .on("mouseover", function () { tooltip.style("display", null) })
             .on("mouseout", function () { tooltip.style("display", "none") })
             .on("mousemove", function (d) {
-                var xPosition = d3.mouse(this)[0] - 2
-                var yPosition = d3.mouse(this)[1] - 2
+                var xPosition = d3.event.pageX
+                var yPosition = d3.event.pageY
                 tooltip.style("left", xPosition + "px").style("top", yPosition + "px")
                 var currKey
                 if (d[0] == 0) currKey = keys[0]
@@ -86,6 +107,8 @@ drawRecs = function(reclist, reclinks, linkSetting) {
             })
 
         // TODO: PUT LEGEND IN RIGHT SPOT
+        const LEGEND_OFFSET = 1
+        const LEGEND_Y_OFFSET = 40
         var legend = recboard.append("g")
             .attr("font-family", "sans-serif")
             .attr("font-size", 10)
@@ -93,38 +116,18 @@ drawRecs = function(reclist, reclinks, linkSetting) {
             .selectAll("g")
             .data(keys.slice().reverse())
             .enter().append("g")
-            .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
-
-        const LEGEND_OFFSET = 1
+            .attr("transform", function (d, i) { return "translate(0," + (i * 20 + LEGEND_Y_OFFSET) + ")"; });
         legend.append("rect")
             .attr("x", width - LEGEND_OFFSET)
-            .attr("y", 5)
+            .attr("y", 0)
             .attr("width", 19)
             .attr("height", 19)
             .attr("fill", z);
         legend.append("text")
             .attr("x", width - LEGEND_OFFSET - 5)
-            .attr("y", 14.5)
+            .attr("y", 9.5)
             .attr("dy", "0.32em")
             .text(function (d) { return d; });
 
     }
 }
-
-// Prep the tooltip bits, initial display is hidden
-var tooltip = d3.select("#vtooltip")
-    .attr("class", "tooltip")
-    .attr("fill", "white")
-    .style("display", "none")
-
-/*tooltip.append("rect")
-    .attr("width", 60 + "px")
-    .attr("height", 20 + "px")
-    .style("opacity", 0.5)*/
-
-tooltip.append("text")
-    .attr("style", "left:30;")
-    .attr("dy", ".2em")
-    .style("text-anchor", "left")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold")

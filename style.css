@@ -25,17 +25,20 @@
 
 #recs {
   position: relative;
+  fill: rgba(255, 255, 255, 0.87);
   width: 100%;
   height: 100%;
 }
+
 #recscroller {
   position: absolute;
-  left: 5%;
+  left: 51%;
   width: 20%;
-  top: 5%;
+  top: 1%;
   height: 40%;
   scroll-behavior: auto;
-  border: 5px solid black;
+  border: 3px solid black;
+  border-radius: 10px;
   fill: rgba(150, 150, 150, 0.322);
 }
 
@@ -69,15 +72,15 @@ text {
   color: white;
   padding: 5px;
   font-size: 16px;
-  width: 10%;
+  width: 100%;
   border: none;
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-  position: relative;
+  position: absolute;
   display: inline-block;
-  left: 51%;
+  left: 95%;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -85,13 +88,16 @@ text {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  max-width: 120px;
+  max-width: 100%;
   min-height: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  align-items: center;
+  align-items: left;
 }
 input[type="range"] {
+  width: 100px;
+}
+input[type="select"] {
   width: 100px;
 }
 
@@ -105,4 +111,62 @@ input[type="range"] {
 }
 .dropdown-content > *:hover {
   display: block;
+}
+
+/* PART TO BE INTEGRATED */
+.bubble {
+    left: 0%;
+    width: 50%;
+    height: 50%;
+}
+
+.para {
+    left: 0%;
+    width: 50%;
+    height: 50%;
+}
+
+path.bubblearc:hover {
+  opacity: 0.6;
+  stroke: black;
+  stroke-width: 1px;
+  transition: opacity 0.5s;
+}
+
+.tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  box-shadow: -3px 3px 15px #888;
+  color: white;
+  padding: 6px;
+}
+
+body {
+  font: 12px sans-serif;
+}
+
+path.arc {
+  opacity: 0.9;
+  transition: opacity 0.5s;
+}
+
+path.arc:hover {
+  opacity: 0.7;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.axis line, .axis circle  {
+  stroke: #cccccc;
+  stroke-width: 1px
+}
+
+.axis circle {
+  fill: none;
+}
+
+.r.axis text {
+  text-anchor: end
 }

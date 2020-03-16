@@ -7,10 +7,6 @@
 </head>
 
 <body>
-  <div id="vis">
-    <svg id="graph"></svg>
-    <div id="recscroller"><svg id="recs"></svg></div>
-  </div>
   <div class="dropdown" style="z-index: 9999;">
     <button class="dropbtn"><img src="./assets/settings.png" width="100%"></img></button>
     <div class="dropdown-content">
@@ -29,6 +25,12 @@
       <button type="button" id="filter">Filter Data</button>
     </div>
   </div>
+  <svg class='bubble' id="bubble"></svg>
+  <svg class='para'></svg>
+  <div id="vis">
+    <svg id="graph"></svg>
+    <div id="recscroller"><svg id="recs"></svg></div>
+  </div>
   <div id="vtooltip"></div>
   <!--<svg class='para'></svg>-->
   
@@ -37,6 +39,7 @@
   <script src="./scripts/d3/d3.queue.js"></script>
   <script src="./scripts/d3/d3-drag.v1.min.js"></script>
   <script src="./scripts/d3/d3-force.v2.min.js"></script>
+  <script src='./scripts/d3/d3.js'></script>
 
   <!--  My scripts  -->
   <script src="./scripts/v/overlays.js"></script>
@@ -56,9 +59,10 @@
         }
       } 
   </script>
-  <!-- BARATH SCRIPTS 
-  <script src='./scripts/b/index.js'></script>
-  <script src='./scripts/b/ParallelChart.js'></script>-->
+  <!-- INTEGRATION SCRIPTS 
+  <script src='./scripts/main.js'></script>-->
+  <script src='./scripts/r/bubblechart.js'></script>
+  <script src='./scripts/b/ParallelChart.js'></script>
 </body>
 
 </html>

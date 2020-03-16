@@ -1,4 +1,27 @@
-const NUM_MOVIES = 100 // testing constant for speed
+
+// INTEGRATION CODE BEGIN
+var margin = { top: 10, right: 10, bottom: 10, left: 50 };
+svgWidth = 1000;
+svgHeight = 500;
+
+
+var dataProcessor = function (d) {
+    return {
+        budget: parseFloat(d.budget),
+        genres: d.genres,
+        revenue: parseFloat(d.revenue),
+        title: d.title
+    };
+}
+
+var svgParaChart = d3.select('body')
+    .select('.para')
+    .attr('width', svgWidth)
+    .attr('height', svgHeight)
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// INTEGRATION CODE END
+
+const NUM_MOVIES = 200 // testing constant for speed
 var url1 = "./data/tmdb_5000_movies.csv"
 var url2 = "./data/tmdb_5000_credits.csv"
 var body = d3.select("body")
@@ -33,7 +56,8 @@ var svg = d3.select("#graph").style("cursor", "move")
 var zoom = d3.zoom().scaleExtent([min_zoom, max_zoom])
 var moveg = svg.append("g").attr("transform", "translate(0,0)scale(1)")
 var g = moveg.append("g").attr("transform", "translate(0,0)scale(1)")
-var data = {
+var mvs = []
+var vdata = {
     nodes: [],
     links: []
 }
@@ -45,11 +69,13 @@ var size = d3.scalePow().exponent(1)
     .range([8, 24])
 var linkSetting = "keywords"
 var groupSetting = "vote_average"
+
+// FILTERING LOCALLY HAPPENS HERE
 d3.select("#filter").on("click", () => {
     linkSetting = d3.select("#links")._groups[0][0].value
     groupSetting = d3.select("#groups")._groups[0][0].value
     strength = +d3.select("#strength")._groups[0][0].value
-    draw(data)
+    draw(vdata)
 })
 // Read data
 d3.csv(url1, movies => {
@@ -57,6 +83,29 @@ d3.csv(url1, movies => {
         var credits = []
         credits = creds
         process(movies, credits)
+
+
+        // INTEGRATION CODE ////////////////////////////////////
+        dataset = movies.filter(function (d) {
+            return (d.budget != 0 && d.revenue != 0);
+        });
+        parser = d3.timeParse("%Y-%m-%d");
+        movies.forEach(function (d) {
+            d['budget'] = parseFloat(d['budget'])
+            d['genres'] = d['genres']
+            d['release_date'] = parser(d['release_date']);
+            d['id'] = +d['id']
+            d['runtime'] = +d['runtime']
+            d['vote_average'] = +d['vote_average']
+            d['vote_count'] = +d['vote_count']
+            d['revenue'] = parseFloat(d['revenue'])
+            d['title'] = d['title']
+        });
+        //console.log(dataset)
+        drawParallelChart(movies, svgParaChart)
+        bubblechart(movies, '.bubble', 'NULL')
+        console.log(movies)
+        this.mvs = movies
     })
 })
 var process = (movies, credits) => {
@@ -97,7 +146,7 @@ var process = (movies, credits) => {
             })
         }
     }
-    this.data = data
+    this.vdata = data
 
     // DO I NEED TO PREPROCESS?
     function download(content, fileName, contentType) {
@@ -108,9 +157,11 @@ var process = (movies, credits) => {
         a.click()
     }
     // download(JSON.stringify(data), 'moviegraphdata.json', 'text/json')
-    draw(data)
+    draw(data, null)
 }
-function draw(graph) {
+
+// CONSTRAINTS: A LIST OF IDs THAT WILL BE THE ONLY IDs SHOWN IN THE GRAPH
+function draw(graph, constraints) {
     var old_transform = g.attr("transform")
     g.remove()
     g = moveg.append("g").attr("transform", old_transform)
@@ -134,7 +185,16 @@ function draw(graph) {
         }
         return false
     }
+
+    // FILTERING INTERACTIVELY HAPPENS HERE
     fgraph.nodes = graph.nodes.filter(d => hasConnections(d))
+    if (constraints !== null && constraints !== undefined) {
+        fgraph.nodes = fgraph.nodes.filter(d => constraints.includes(+d.id))
+        fgraph.links = fgraph.links.filter(d => (constraints.includes(+d.source.id) && constraints.includes(+d.target.id)))
+        //console.log(fgraph)
+    }
+
+
     var force = d3.forceSimulation()
         .nodes(fgraph.nodes)
         .force("link", d3.forceLink(fgraph.links.slice(0)).id(d => d.id).distance(60))
@@ -191,7 +251,7 @@ function draw(graph) {
                 exit_highlight()
         })
     function exit_highlight() {
-        drawRecs([], [], linkSetting)
+        drawRecs([], [], "")
         highlight_node = null
         if (focus_node === null) {
             svg.style("cursor", "move")
@@ -268,7 +328,7 @@ function draw(graph) {
             //g.transition().duration(100).attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + scale + ")")
         }
         else {*/
-            moveg.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(1" + /*scale*/ + ")")
+            moveg.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(1)" /*scale*/)
         //}
 
     })
@@ -339,7 +399,7 @@ function draw(graph) {
                 neighbors.forEach(o => {
                     neighborlinks.push(linkedByIndex[d.id + "," + o.id] == undefined ? linkedByIndex[o.id + "," + d.id] : linkedByIndex[d.id + "," + o.id])
                 })
-                drawRecs(neighbors, neighborlinks, linkSetting)
+                drawRecs(neighbors, neighborlinks, focus_node.title)
             } else if (!selected) {
                 focus_node = null
                 set_focus(null)
@@ -348,6 +408,10 @@ function draw(graph) {
             }
             d.fx = null
             d.fy = null
+        }
+        if (mvs.length != 0) {
+            console.log(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))))
+            bubblechart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id)), '.bubble', 'NULL'))
         }
         return d3.drag()
             .on("start", dragstarted)
