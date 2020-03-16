@@ -1,4 +1,4 @@
-const NUM_MOVIES = 20 // testing constant for speed
+const NUM_MOVIES = 100 // testing constant for speed
 var url1 = "./data/tmdb_5000_movies.csv"
 var url2 = "./data/tmdb_5000_credits.csv"
 var body = d3.select("body")
@@ -245,7 +245,7 @@ function draw(graph) {
         }
     }
     zoom.on("zoom", function () {
-        var scale = d3.event.transform.k
+        /*var scale = d3.event.transform.k
         var stroke = nominal_stroke
         if (nominal_stroke * scale > max_stroke) stroke = max_stroke / scale
         link.style("stroke-width", stroke)
@@ -255,23 +255,24 @@ function draw(graph) {
         if (!text_center) text.attr("dx", function (d) { return (size(d.size) * base_radius / nominal_base_node_size || base_radius); })
         var text_size = nominal_text_size
         if (nominal_text_size * scale > max_text_size) text_size = max_text_size / scale
-        text.style("font-size", text_size + "px")
+        text.style("font-size", text_size + "px")*/
         var pos = d3.zoomTransform("#graph")
         pos.x = d3.event.transform.x
         pos.y = d3.event.transform.y
 
-        if (pos.k != scale) {
-            pos.k = scale
-            moveg.transition().duration(100).attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + scale + ")")
+        /*if (pos.k != scale) {
+            //pos.k = scale
+            moveg.transition().duration(100)
+                .attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + scale + ")")
 
             //g.transition().duration(100).attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + scale + ")")
         }
-        else {
-            moveg.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(" + scale + ")")
-        }
+        else {*/
+            moveg.attr("transform", "translate(" + d3.event.transform.x + "," + d3.event.transform.y + ")scale(1" + /*scale*/ + ")")
+        //}
 
     })
-    svg.call(zoom).on("dblclick.zoom", null);
+    svg.call(zoom).on("dblclick.zoom", null).on("wheel.zoom", null);
     force.on("tick", function () {
 
         node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
@@ -325,10 +326,8 @@ function draw(graph) {
                     selected = true
                 }
                 var pos = d3.zoomTransform("#graph")
-                console.log((d.fx + pos.x), (d.fy + pos.y))
-                console.log(pos.k)
-                var dcx = (w / 2) / pos.k - (d.x + pos.x) * (pos.k)
-                var dcy = (h / 2) / pos.k - (d.y + pos.y) * (pos.k)
+                var dcx = (w / 2) / 1 - (d.x + pos.x) * (1)
+                var dcy = (h / 2) / 1 - (d.y + pos.y) * (1)
                 g.transition().duration(750).attr("transform", "translate(" + dcx + "," + dcy + ")scale(" + 1 + ")")
                 var neighborlinks = []
                 neighbors.sort((a, b) => {
