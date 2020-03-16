@@ -1,0 +1,106 @@
+#vtooltip {
+  position: absolute;
+  word-wrap: break-word;
+  width: 200px;
+  pointer-events: none;
+  outline: 1px solid rgb(114, 1, 1);
+  background-color: rgba(255, 255, 255, 0.918);
+  padding: 0;
+  /*z-index: 999;
+  text-align: justify;
+  max-width: 300;*/
+}
+
+#graph {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#recs {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#recscroller {
+  position: absolute;
+  left: 5%;
+  width: 20%;
+  top: 5%;
+  height: 40%;
+  scroll-behavior: auto;
+  border: 5px solid black;
+  fill: rgba(150, 150, 150, 0.322);
+}
+
+.recs {
+  position: relative;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.axis {
+  font-family: arial;
+  font-size: 0.7em;
+}
+
+text {
+  fill: black;
+  stroke: none;
+  position: relative;
+  left: 20%;
+  top: 3%;
+  font-family: 'futura';
+}
+
+ /* Dropdown Button */
+.dropbtn {
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  width: 10%;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  left: 0%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  max-width: 120px;
+  min-height: 140px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  align-items: center;
+}
+input[type="range"] {
+  width: 100px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */ 
+.dropbtn:hover {background-color: #7a7a7a88;}
+
+/* Show the dropdown menu on hover  */
+.dropbtn:hover + .dropdown-content {display: block;}
+.dropdown-content:hover {
+  display: block;
+}
+.dropdown-content > *:hover {
+  display: block;
+}

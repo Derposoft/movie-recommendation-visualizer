@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="vis">
+    <svg id="graph"></svg>
+    <div id="recscroller"><svg id="recs"></svg></div>
+  </div>
+  <div class="dropdown" style="z-index: 9999;">
+    <button class="dropbtn"><img src="./assets/settings.png" width="100%"></img></button>
+    <div class="dropdown-content">
+      <select id="links" name="links">
+        <option value="keywords">keywords</option>
+        <option value="genres">genres</option>
+        <option value="cast">cast</option>
+        <option value="crew">crew</option>
+      </select>
+      <select id="groups" name="groups">
+        <option value="vote_average">vote_average</option>
+        <option value="budget">budget</option>
+        <option value="revenue">revenue</option>
+      </select>
+      <input type="range" min="1" max="5" value="2" id="strength">
+      <button type="button" id="filter">Filter Data</button>
+    </div>
+  </div>
+  <div id="vtooltip"></div>
+  <!--<svg class='para'></svg>-->
+  
+  <script src="./scripts/d3/d3.v4.js"></script>
+  <script src="./scripts/d3/d3.scale.chromatic.js"></script>
+  <script src="./scripts/d3/d3.queue.js"></script>
+  <script src="./scripts/d3/d3-drag.v1.min.js"></script>
+  <script src="./scripts/d3/d3-force.v2.min.js"></script>
+
+  <!--  My scripts  -->
+  <script src="./scripts/v/overlays.js"></script>
+  <script src="./scripts/v/graph.js"></script>
+  <script>
+      // Close the dropdown menu if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      } 
+  </script>
+  <!-- BARATH SCRIPTS 
+  <script src='./scripts/b/index.js'></script>
+  <script src='./scripts/b/ParallelChart.js'></script>-->
+</body>
+
+</html>
