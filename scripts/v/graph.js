@@ -6,6 +6,8 @@ var w = body.style("width")
 w = +w.substring(0, w.length - 2)
 var h = body.style("height")
 h = +h.substring(0, h.length - 2)
+w = w/2// * +d3.select("#graph").style("width").substring(0, 2) / 100
+h = h// * +d3.select("#graph").style("height").substring(0, 2) / 100
 var keyc = true, keys = true, keyt = true, keyr = true, keyx = true, keyd = true, keyl = true, keym = true, keyh = true, key1 = true, key2 = true, key3 = true, key0 = true
 var focus_node = null, highlight_node = null
 var text_center = false
