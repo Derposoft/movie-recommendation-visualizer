@@ -1,8 +1,8 @@
 
 // INTEGRATION CODE BEGIN
-var margin = { top: 10, right: 10, bottom: 10, left: 50 };
-svgWidth = 1000;
-svgHeight = 500;
+var margin = { top: 10, right: 10, bottom: 10, left: 10 };
+svgWidth = 950;
+svgHeight = 350;
 
 
 var dataProcessor = function (d) {
@@ -57,6 +57,10 @@ var zoom = d3.zoom().scaleExtent([min_zoom, max_zoom])
 var moveg = svg.append("g").attr("transform", "translate(0,0)scale(1)")
 var g = moveg.append("g").attr("transform", "translate(0,0)scale(1)")
 var mvs = []
+var vfgraph = {
+    nodes: [],
+    links: []
+}
 var vdata = {
     nodes: [],
     links: []
@@ -75,6 +79,8 @@ d3.select("#filter").on("click", () => {
     linkSetting = d3.select("#links")._groups[0][0].value
     //groupSetting = d3.select("#groups")._groups[0][0].value
     strength = +d3.select("#strength")._groups[0][0].value
+    drawParallelChart(mvs.filter(d => vfgraph.nodes.some(x => (+x.id) == (+d.id))), svgParaChart)
+    bubblechart(mvs.filter(d => vfgraph.nodes.some(x => (+x.id) == (+d.id))), '.bubble', 'NULL')
     draw(vdata)
 })
 // Read data
@@ -102,8 +108,8 @@ d3.csv(url1, movies => {
             d['title'] = d['title']
         });
         //console.log(dataset)
-        drawParallelChart(movies, svgParaChart)
-        bubblechart(movies, '.bubble', 'NULL')
+        drawParallelChart(movies.slice(0, NUM_MOVIES), svgParaChart)
+        bubblechart(movies.slice(0, NUM_MOVIES), '.bubble', 'NULL')
         console.log(movies)
         this.mvs = movies
     })
@@ -346,6 +352,7 @@ function draw(graph, constraints) {
         node.attr("cx", function (d) { return d.x; })
             .attr("cy", function (d) { return d.y; })
     })
+    this.vfgraph = fgraph
     var init_x = 0, init_y = 0
     function drag(simulation) {
         function dragstarted(d) {
@@ -412,7 +419,7 @@ function draw(graph, constraints) {
         if (mvs.length != 0) {
             console.log(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))))
             //bubblechart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id)), '.bubble', 'NULL'))
-            drawParallelChart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))), svgParaChart)
+            // drawParallelChart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))), svgParaChart)
         }
         return d3.drag()
             .on("start", dragstarted)

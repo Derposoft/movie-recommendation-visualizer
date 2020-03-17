@@ -101,7 +101,7 @@ input[type="select"] {
   width: 100px;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */ 
+/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropbtn:hover {background-color: #7a7a7a88;}
 
 /* Show the dropdown menu on hover  */
@@ -116,14 +116,14 @@ input[type="select"] {
 /* PART TO BE INTEGRATED */
 .bubble {
     left: 0%;
-    width: 50%;
+    width: 51%;
     height: 50%;
 }
 
 .para {
     left: 0%;
-    width: 50%;
-    height: 50%;
+    width: 49%;
+    height: 49%;
 }
 
 path.bubblearc:hover {
