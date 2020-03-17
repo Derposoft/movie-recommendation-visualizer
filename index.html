@@ -10,12 +10,14 @@
   <div class="dropdown" style="z-index: 9999;">
     <button class="dropbtn"><img src="./assets/settings.png" width="100%"></img></button>
     <div class="dropdown-content">
+      <p>Link Type</p>
       <select id="links" name="links">
         <option value="keywords">keywords</option>
         <option value="genres">genres</option>
         <option value="cast">cast</option>
         <option value="crew">crew</option>
       </select>
+      <p>Similarity</p>
       <input type="range" min="1" max="5" value="2" id="strength">
       <button type="button" id="filter">Filter Data</button>
     </div>
