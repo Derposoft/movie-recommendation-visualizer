@@ -19,10 +19,10 @@ var tooltip = d3.select("#vtooltip")
     .attr("height", 20 + "px")
     .style("opacity", 0.5)*/
 
-tooltip.append("text")
-    .attr("style", "left:30;")
+var ttext = tooltip//.append("text")
+    //.attr("style", "left:30;")
     .attr("dy", ".2em")
-    .style("text-anchor", "left")
+    //.style("text-anchor", "left")
     .attr("font-size", "12px")
     .attr("font-weight", "bold")
 
@@ -103,7 +103,7 @@ drawRecs = function(reclist, reclinks, title) {
                     }
                     return res
                 }
-                tooltip.select("text").text(d[1] - d[0] + " matching " + currKey + ": " + commalist(reclinks[d.data.i].values[currKey]))
+                ttext.html("<b>" + (d[1] - d[0]) + " matching " + currKey + ":</b> " + commalist(reclinks[d.data.i].values[currKey]) + "")
             })
 
         // TODO: PUT LEGEND IN RIGHT SPOT

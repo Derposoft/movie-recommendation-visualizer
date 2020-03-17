@@ -79,7 +79,7 @@ d3.select("#filter").on("click", () => {
     linkSetting = d3.select("#links")._groups[0][0].value
     //groupSetting = d3.select("#groups")._groups[0][0].value
     strength = +d3.select("#strength")._groups[0][0].value
-    drawParallelChart(mvs.filter(d => vfgraph.nodes.some(x => (+x.id) == (+d.id))), svgParaChart)
+    drawParallelChart(mvs, svgParaChart, mvs.filter(d => vfgraph.nodes.some(x => (+x.id) == (+d.id))))
     bubblechart(mvs.filter(d => vfgraph.nodes.some(x => (+x.id) == (+d.id))), '.bubble', 'NULL')
     draw(vdata)
 })
@@ -108,10 +108,10 @@ d3.csv(url1, movies => {
             d['title'] = d['title']
         });
         //console.log(dataset)
-        drawParallelChart(movies.slice(0, NUM_MOVIES), svgParaChart)
+        drawParallelChart(movies.slice(0, NUM_MOVIES), svgParaChart, [])
         bubblechart(movies.slice(0, NUM_MOVIES), '.bubble', 'NULL')
-        console.log(movies)
-        this.mvs = movies
+        this.mvs = movies.slice(0, NUM_MOVIES)
+        console.log(movies.slice(0, NUM_MOVIES))
     })
 })
 var process = (movies, credits) => {

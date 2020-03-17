@@ -1,14 +1,27 @@
 #vtooltip {
-  position: absolute;
-  word-wrap: break-word;
-  width: 200px;
+  /*position: absolute;
   pointer-events: none;
   outline: 1px solid rgb(114, 1, 1);
   background-color: rgba(255, 255, 255, 0.918);
   padding: 0;
-  /*z-index: 999;
-  text-align: justify;
-  max-width: 300;*/
+  z-index: 999;
+  max-width: 300;
+  text-align: justify;*/
+  
+  word-wrap: break-word;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow-x: visible;
+  overflow-y: visible;
+  position: absolute;
+  padding: 10px;
+  background-color: white;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  left: 60;
 }
 
 #graph {
@@ -134,13 +147,17 @@ path.bubblearc:hover {
 }
 
 .tooltip {
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow-x: visible;
+  overflow-y: visible;
   position: absolute;
-  display: none;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 3px;
-  box-shadow: -3px 3px 15px #888;
-  color: white;
-  padding: 6px;
+  padding: 10px;
+  background-color: white;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 }
 
 body {

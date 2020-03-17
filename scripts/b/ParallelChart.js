@@ -2,8 +2,9 @@ backgroundLineColor = 'rgba(171, 171, 171, 0.5)'
 foregroundLineColor = 'rgba(30, 44, 241, 1)'
 foregroundLineColor = '#03456b'
 
-function drawParallelChart(data, svgParaChart) {
+function drawParallelChart(data, svgParaChart, filter) {
 	svgParaChart.selectAll("g").remove()
+	data.filter(x => filter.some(y => y.id == x.id))
 	this.data = data
 	pDimensions = ['budget', 'release_date', 'runtime', 'vote_average', 'vote_count'];
 
@@ -79,19 +80,19 @@ function drawParallelChart(data, svgParaChart) {
 	inverval = 150
 	var brushBudget = d3.brushY()
 		.extent([[startPos, 0], [brushWidth + startPos, svgHeight - 30]])
-		.on("brush", brushmovedBudget);
+		.on("end", brushmovedBudget);
 	var brushReleaseDate = d3.brushY()
 		.extent([[startPos + inverval, 0], [brushWidth + startPos + inverval, svgHeight - 30]])
-		.on("brush", brushmovedReleaseDate);
+		.on("end", brushmovedReleaseDate);
 	var brushRuntime = d3.brushY()
 		.extent([[startPos + 2 * inverval, 0], [brushWidth + startPos + 2 * inverval, svgHeight - 30]])
-		.on("brush", brushmovedRuntime);
+		.on("end", brushmovedRuntime);
 	var brushVoteAvg = d3.brushY()
 		.extent([[startPos + 3 * inverval, 0], [brushWidth + startPos + 3 * inverval, svgHeight - 30]])
-		.on("brush", brushmovedVoteAvg);
+		.on("end", brushmovedVoteAvg);
 	var brushVoteCount = d3.brushY()
 		.extent([[startPos + 4 * inverval, 0], [brushWidth + startPos + 4 * inverval, svgHeight - 30]])
-		.on("brush", brushmovedVoteCount);
+		.on("end", brushmovedVoteCount);
 
 	var gBrushBudget = svgParaChart.append("g")
 		.attr("class", "brush")
@@ -209,8 +210,8 @@ function filter(ranges) {
 	//FILTERED DATA IS THE OUTPUT
 	console.log(filteredData)
 	draw(vdata, filteredData.map(d => d.id))
-	/*
 	bubblechart(filteredData, '.bubble', 'NULL');
+	/*
 	*/
 }
 

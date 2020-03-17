@@ -124,8 +124,8 @@ function bubblechart(data, svg, selectedgenre) {
     ['Family', [famsum, fam2sum]],
     ['Fantasy', [fantasysum, fantasy2sum]],
     ['Animation', [anisum, ani2sum]],
-    ['Documentary', [docsum, doc2sum]],
-    ['Music', [musicsum, music2sum]],
+    //['Documentary', [docsum, doc2sum]],
+    //['Music', [musicsum, music2sum]],
     ['War', [warsum, war2sum]]
   ];
 
