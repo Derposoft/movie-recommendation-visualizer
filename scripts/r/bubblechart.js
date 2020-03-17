@@ -1,5 +1,5 @@
 function bubblechart(data, svg, selectedgenre) {
-  clearSVG(svg);
+  clearSVG('.bubble');
   // begin sloppy genre encoding
   var dramasum = 0, drama2sum = 0;
   var comedysum = 0, comedy2sum = 0;
@@ -129,7 +129,7 @@ function bubblechart(data, svg, selectedgenre) {
       [ 'War',             [warsum, war2sum]             ]
     ];
 
-  var boundingBox = d3.select(svg).node().getBoundingClientRect();
+  var boundingBox = d3.select('.bubble').node().getBoundingClientRect();
   var h = boundingBox.height;
   var w = boundingBox.width;
 
@@ -137,12 +137,12 @@ function bubblechart(data, svg, selectedgenre) {
   var colorBudget = "#74a9cf";
 
   if (selectedgenre != 'NULL') {
-    producebubble(filteredGenre, svg, w/2, h, colorBudget, colorRevenue, selectedgenre, data);
-    drawRadial(data, selectedgenre, svg, h, w);
+    producebubble(filteredGenre, '.bubble', w/2, h, colorBudget, colorRevenue, selectedgenre, data);
+    drawRadial(data, selectedgenre, '.bubble', h, w);
   } else {
-    producebubble(genrelist, svg, w, h, colorBudget, colorRevenue, selectedgenre, data);
+    producebubble(genrelist, '.bubble', w, h, colorBudget, colorRevenue, selectedgenre, data);
   }
-  legendBuilder(svg, w, h, colorBudget, colorRevenue);
+  legendBuilder('.bubble', w, h, colorBudget, colorRevenue);
 }
 
 /******************************************************************************/

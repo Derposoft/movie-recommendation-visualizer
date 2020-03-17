@@ -73,7 +73,7 @@ var groupSetting = "vote_average"
 // FILTERING LOCALLY HAPPENS HERE
 d3.select("#filter").on("click", () => {
     linkSetting = d3.select("#links")._groups[0][0].value
-    groupSetting = d3.select("#groups")._groups[0][0].value
+    //groupSetting = d3.select("#groups")._groups[0][0].value
     strength = +d3.select("#strength")._groups[0][0].value
     draw(vdata)
 })
@@ -411,7 +411,8 @@ function draw(graph, constraints) {
         }
         if (mvs.length != 0) {
             console.log(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))))
-            bubblechart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id)), '.bubble', 'NULL'))
+            //bubblechart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id)), '.bubble', 'NULL'))
+            drawParallelChart(mvs.filter(d => fgraph.nodes.some(x => (+x.id) == (+d.id))), svgParaChart)
         }
         return d3.drag()
             .on("start", dragstarted)

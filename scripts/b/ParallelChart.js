@@ -1,14 +1,11 @@
-
-
 backgroundLineColor = 'rgba(171, 171, 171, 0.5)'
 foregroundLineColor = 'rgba(30, 44, 241, 1)'
 foregroundLineColor = '#03456b'
 
 function drawParallelChart(data,svgParaChart){
+	svgParaChart.selectAll("g").remove()
 	this.data = data
 	pDimensions = ['budget', 'release_date', 'runtime','vote_average','vote_count'];
-
-
 	
 	yScales = {}
 	for (i in pDimensions){
